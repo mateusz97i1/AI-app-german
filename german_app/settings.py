@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-k9#$-z8ffi_^z&cqx#c_rb^=7g%j5=cp&v(7^j1-&aafduav)1
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = [" 'https://ai-app-german-production.up.railway.app'"]
+CSRF_TRUSTED_ORIGINS = ["https://ai-app-german-production.up.railway.app"]
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -126,7 +127,7 @@ STATIC_URL = '/static/'
 
 # Directory where 'collectstatic' will gather all static files for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Don't nest 'static' here
-
+STATICSTORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Directories where you keep your static files in development
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
