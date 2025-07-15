@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure-k9#$-z8ffi_^z&cqx#c_rb^=7g%j5=cp&v(7^j1-&aafduav)1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["https://carrentalrailway-production.up.railway.app"]
+
 
 # Application definition
 
@@ -38,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     'word_generator',
     'tailwind',   
     'theme',
@@ -47,14 +47,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'german_app.urls'
@@ -62,7 +61,7 @@ ROOT_URLCONF = 'german_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates/')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,6 +140,3 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 NPM_BIN_PATH=r'D:/Program Files/nodejs/npm.cmd'
-SESSION_ENGINE = 'django.contrib.sessions.backends.db' 
-SESSION_SAVE_EVERY_REQUEST = True 
-STATICSTORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
