@@ -1,0 +1,106 @@
+{% extends 'home.html' %}
+{% load static tailwind_tags %}
+{% load static %}
+
+{% block welcome_bar %}
+
+<style>
+  .perspective {
+    perspective: 1000px;
+    z-index: 1;
+  }
+
+  .card {
+    transition: transform 0.6s, background-color 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    z-index: 1;
+  }
+
+  .card.flipped {
+    transform: rotateY(180deg);
+    background-color: #3b82f6;
+    z-index: 1;
+  }
+
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 1rem;
+    overflow: hidden;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    z-index: 1;
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+    background-color: #bfdbfe;
+    z-index: 1;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<!-- Page Title and Description -->
+<section class="flex flex-col items-center justify-center px-6 py-10 text-center">
+  <h1 class="text-6xl font-bold text-transparent pointer-events-none bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
+    Let's Find Out!
+  </h1>
+</section>
+
+<!-- Search Bar -->
+<div class="relative z-20 max-w-xl mx-auto mb-2">
+    <form action="{% url 'word_generator:dictionary' %}" method="get" class="flex">
+        <input id="searchInput" type="text" autocomplete="off" name="q" placeholder="Search..." value="{{ request.GET.q }}" class="relative z-10 w-full p-4 border shadow rounded-2xl focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+        <ul id="autocompleteList" class="absolute left-0 right-0 z-10 hidden mt-1 overflow-auto bg-white border border-gray-300 rounded-md top-full max-h-60"></ul>
+    </form>
+</div>
+
+
+
+<!-- Card Grid -->
+<section id="cardSection" class="z-10 flex flex-wrap items-start justify-center gap-6 p-6">
+  {% for word in words %}
+    <div class="w-32 h-16 word-card perspective" onclick="flipCard(this)">
+      <div class="shadow-xl card hover:shadow-2xl">
+        <div class="card-front">
+          {{ word.german_word }}
+        </div>
+        <div class="card-back">
+          {{ word.polish_translation }}
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-gray-500">No results found.</p>
+  {% endfor %}
+</section>
+
+<!-- Scripts -->
+<div class="min-h-screen"></div>
+<script src="{% static 'js/dictionary_searchbar.js' %}"></script>
+<script>
+  function flipCard(cardElement) {
+    const card = cardElement.querySelector('.card');
+    card.classList.toggle('flipped');
+  }
+</script>
+
+{% endblock welcome_bar %}
